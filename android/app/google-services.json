@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "761183160138",
+    "firebase_url": "https://elesson-7e33b.firebaseio.com",
+    "project_id": "elesson-7e33b",
+    "storage_bucket": "elesson-7e33b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761183160138:android:a3650bc8c5036bb82323b3",
+        "android_client_info": {
+          "package_name": "com.lunari8546.eLesson"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761183160138-np8etva773nsl2i46t5123p73q4ovb1v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6f3sc7FCV_azyvfXlFmneVoP2cz2oYvk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761183160138-np8etva773nsl2i46t5123p73q4ovb1v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
