@@ -1,4 +1,4 @@
-import 'package:eLesson/views/homepage.dart';
+import 'package:eLesson/views/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -19,7 +19,7 @@ class ELesson extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       debugShowCheckedModeBanner: false,
-      home: Homepage()
+      home: Auth()
     );
   }
 }
