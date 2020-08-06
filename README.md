@@ -1,3 +1,9 @@
 # eLesson
 
-First offical Flutter project made by DavidChiu8546 (Lunari8546).
+**Version 0.0.1**
+
+## Contributors
+- Lunari8546 <www.voltgaming@gmail.com>
+
+## Copyright
+© Copyright 2020, Lunari8546. All Rights Reserved.
