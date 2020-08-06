@@ -8,6 +8,9 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  String _email, _password;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,7 +86,7 @@ class _HomepageState extends State<Homepage> {
                     ),
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: "Username",
+                      hintText: "Gmail",
                       hintStyle: GoogleFonts.montserrat(
                         textStyle: TextStyle(
                           color: Colors.white,
@@ -141,7 +144,7 @@ class _HomepageState extends State<Homepage> {
                 SizedBox(height: 40),
                 GestureDetector(
                   onTap: () => {
-
+                    signIn()
                   },
                   child: Center(
                     child: Container(
@@ -192,5 +195,12 @@ class _HomepageState extends State<Homepage> {
         ],
       ),
     );
+  }
+
+  void signIn() {
+    final formState = _formKey.currentState;
+    if (formState.validate()) {
+
+    }
   }
 }
