@@ -1,8 +1,10 @@
+import 'package:eLesson/splashscreen.dart';
 import 'package:eLesson/variables.dart';
 import 'package:eLesson/views/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:io';
 
 class Auth extends StatefulWidget {
   @override
@@ -10,6 +12,26 @@ class Auth extends StatefulWidget {
 }
 
 class _AuthState extends State<Auth> {
+  void load() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        
+      }
+    } on SocketException catch (_) {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Splashscreen())
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    load();
+  }
+
   String _email, _password;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -227,6 +249,7 @@ class _AuthState extends State<Auth> {
           context,
           MaterialPageRoute(builder: (context) => Homepage())
         );
+        loggedIn = true;
       } catch(e) {
         print(e.message);
       }
@@ -242,6 +265,7 @@ class _AuthState extends State<Auth> {
           context,
           MaterialPageRoute(builder: (context) => Homepage())
         );
+        loggedIn = true;
       } catch(e) {
         print(e.message);
       }

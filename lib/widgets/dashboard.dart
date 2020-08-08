@@ -1,3 +1,4 @@
+import 'package:eLesson/views/menu/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -16,7 +17,7 @@ class Dashboard extends StatelessWidget {
     event: "",
     icon: Icon(Icons.account_circle),
     function: () => {
-      
+
     }
   );
 
