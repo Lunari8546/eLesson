@@ -1,10 +1,14 @@
 import 'package:eLesson/splashscreen.dart';
 import 'package:eLesson/variables.dart';
 import 'package:eLesson/views/auth.dart';
+import 'package:eLesson/views/menu/assignment.dart';
+import 'package:eLesson/views/menu/profile.dart';
+import 'package:eLesson/views/menu/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:eLesson/widgets/dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:page_transition/page_transition.dart';
 import 'dart:io';
 
 class Homepage extends StatefulWidget {
@@ -76,7 +80,32 @@ class _HomepageState extends State<Homepage> {
               ),
             ),
             SizedBox(height: 40),
-            Dashboard()
+            Dashboard(
+              DashboardItem(
+                title: "Assignment",
+                event: "0 to do",
+                icon: Icon(Icons.assignment),
+                function: () => {
+                  Navigator.push(context, PageTransition(type: PageTransitionType.downToUp, child: Assignment()))
+                }
+              ),
+              DashboardItem(
+                title: "Profile",
+                event: "0 notifications",
+                icon: Icon(Icons.account_circle),
+                function: () => {
+                  Navigator.push(context, PageTransition(type: PageTransitionType.downToUp, child: Profile()))
+                }
+              ),
+              DashboardItem(
+                title: "Settings",
+                event: "",
+                icon: Icon(Icons.settings),
+                function: () => {
+                  Navigator.push(context, PageTransition(type: PageTransitionType.downToUp, child: Settings()))
+                }
+              )
+            )
           ],
         ) : Container(
           child: Center(

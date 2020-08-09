@@ -1,34 +1,14 @@
-import 'package:eLesson/views/menu/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Dashboard extends StatelessWidget {
-  DashboardItem item1 = new DashboardItem(
-    title: "Assignment",
-    event: "0",
-    icon: Icon(Icons.assignment),
-    function: () => {
-      
-    }
-  );
+  Dashboard(this.item1, this.item2, this.item3);
 
-  DashboardItem item2 = new DashboardItem(
-    title: "Profile",
-    event: "",
-    icon: Icon(Icons.account_circle),
-    function: () => {
+  DashboardItem item1 = new DashboardItem();
 
-    }
-  );
+  DashboardItem item2 = new DashboardItem();
 
-  DashboardItem item3 = new DashboardItem(
-    title: "Settings",
-    event: "",
-    icon: Icon(Icons.settings),
-    function: () => {
-      
-    }
-  );
+  DashboardItem item3 = new DashboardItem();
 
   @override
   Widget build(BuildContext context) {

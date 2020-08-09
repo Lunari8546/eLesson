@@ -1,17 +1,13 @@
 # eLesson
 
-**Version 0.0.4**
+**Version 0.0.5**
 
 ## Contributors
 - Lunari8546 <www.voltgaming@gmail.com>
 
-## Update Log for 0.0.4
-- Added signOut() function.
-- Added load() function.
-- Added profile.dart.
-- Added splashscreen.dart.
-- Added prevention of entering the app without Internet Connection.
-- Added prevention of entering the Dashboard without logging in.
+## Update Log for 0.0.5
+- Added assignment.dart
+- Added settings.dart
 
 ## Copyright
 © Copyright 2020, Lunari8546. All Rights Reserved.
