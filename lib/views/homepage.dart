@@ -98,6 +98,14 @@ class _HomepageState extends State<Homepage> {
                 }
               ),
               DashboardItem(
+                title: "Search",
+                event: "",
+                icon: Icon(Icons.search),
+                function: () => {
+                  
+                }
+              ),
+              DashboardItem(
                 title: "Settings",
                 event: "",
                 icon: Icon(Icons.settings),

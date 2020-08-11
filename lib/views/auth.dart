@@ -168,7 +168,7 @@ class _AuthState extends State<Auth> {
                     SizedBox(height: 40),
                     GestureDetector(
                       onTap: () => {
-                        
+                        forgotPassword(_email)
                       },
                       child: Center(
                         child: Text(
@@ -265,10 +265,18 @@ class _AuthState extends State<Auth> {
           context,
           MaterialPageRoute(builder: (context) => Homepage())
         );
+        if (user != null) {
+          user.sendEmailVerification();
+        }
         loggedIn = true;
       } catch(e) {
         print(e.message);
       }
     }
+  }
+
+  @override
+  Future<void> forgotPassword(String email) async {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: _email);
   }
 }

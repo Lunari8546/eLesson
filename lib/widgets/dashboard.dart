@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Dashboard extends StatelessWidget {
-  Dashboard(this.item1, this.item2, this.item3);
+  Dashboard(this.item1, this.item2, this.item3, this.item4);
 
   DashboardItem item1 = new DashboardItem();
 
@@ -10,9 +10,11 @@ class Dashboard extends StatelessWidget {
 
   DashboardItem item3 = new DashboardItem();
 
+  DashboardItem item4 = new DashboardItem();
+
   @override
   Widget build(BuildContext context) {
-    List<DashboardItem> dashboardList = [item1, item2, item3];
+    List<DashboardItem> dashboardList = [item1, item2, item3, item4];
     return Flexible(
       child: GridView.count(
         childAspectRatio: 1.0,
