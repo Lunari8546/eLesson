@@ -1,8 +1,11 @@
+import 'dart:io';
+import 'package:eLesson/services/uploadimage.dart';
 import 'package:eLesson/variables.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -13,8 +16,6 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     super.initState();
-    checkVerify();
-    getUserData();
   }
 
   @override
@@ -39,7 +40,10 @@ class _ProfileState extends State<Profile> {
                           padding: const EdgeInsets.only(left: 20),
                           child: GestureDetector(
                             onTap: () => {
-                              
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => UploadImage())
+                              )
                             },
                             child: Container(
                               height: 90,
