@@ -4,11 +4,13 @@ import 'package:eLesson/views/auth.dart';
 import 'package:eLesson/views/menu/assignment.dart';
 import 'package:eLesson/views/menu/profile.dart';
 import 'package:eLesson/views/menu/settings.dart';
+import 'package:eLesson/views/menu/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:eLesson/widgets/dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:eLesson/views/menu/courses.dart';
 import 'dart:io';
 
 class Homepage extends StatefulWidget {
@@ -37,12 +39,13 @@ class _HomepageState extends State<Homepage> {
     load();
     checkVerify();
     getUserData();
+    getUserIcon();
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold (
+      child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: backgroundColor,
         body: loggedIn ? Column(
@@ -99,12 +102,20 @@ class _HomepageState extends State<Homepage> {
                   Navigator.push(context, PageTransition(type: PageTransitionType.downToUp, child: Profile()))
                 }
               ),
-              DashboardItem(
-                title: "Search",
-                event: "",
-                icon: Icon(Icons.search),
+               DashboardItem(
+                title: "Courses",
+                event: "0 joined",
+                icon: Icon(Icons.local_library),
                 function: () => {
-                  
+                  Navigator.push(context, PageTransition(type: PageTransitionType.downToUp, child: Courses()))
+                }
+              ),
+              DashboardItem(
+                title: "Storage",
+                event: "",
+                icon: Icon(Icons.storage),
+                function: () => {
+                  Navigator.push(context, PageTransition(type: PageTransitionType.downToUp, child: Storage()))
                 }
               ),
               DashboardItem(
@@ -114,7 +125,7 @@ class _HomepageState extends State<Homepage> {
                 function: () => {
                   Navigator.push(context, PageTransition(type: PageTransitionType.downToUp, child: Settings()))
                 }
-              )
+              ),
             )
           ],
         ) : Container(

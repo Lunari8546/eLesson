@@ -1,3 +1,4 @@
+import 'package:eLesson/views/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:eLesson/variables.dart';
@@ -17,7 +18,7 @@ class _UploaderState extends State<Uploader> {
   StorageUploadTask _uploadTask;
 
   void _startUpload() {
-    String filePath = "images/profileicons/$userEmail.png";
+    String filePath = "images/$userEmail/profile.png";
 
     setState(() {
       _uploadTask = _storage.ref().child(filePath).putFile(widget.file);
@@ -37,6 +38,16 @@ class _UploaderState extends State<Uploader> {
             children: [
               if (_uploadTask.isComplete)
                 Text("Upload completed"),
+                FlatButton(
+                  child: Icon(Icons.home),
+                  onPressed: () => {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => Homepage())
+                    ),
+                    profileURLExist = true
+                  },
+                ),
               if (_uploadTask.isPaused)
                 FlatButton(
                   child: Icon(Icons.play_arrow),

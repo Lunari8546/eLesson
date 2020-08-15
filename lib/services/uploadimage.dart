@@ -1,3 +1,4 @@
+import 'package:eLesson/variables.dart';
 import 'package:eLesson/widgets/uploader.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -37,6 +38,12 @@ class _UploadImageState extends State<UploadImage> {
     setState(() {
       _imageFile = null;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserData();
   }
 
   @override

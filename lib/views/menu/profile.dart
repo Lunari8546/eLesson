@@ -16,6 +16,7 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     super.initState();
+    getUserIcon();
   }
 
   @override
@@ -51,7 +52,7 @@ class _ProfileState extends State<Profile> {
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
-                                  image: AssetImage("assets/images/userdefault.png"),
+                                  image: NetworkImage(profileURL),
                                   fit: BoxFit.cover
                                 )
                               ),
