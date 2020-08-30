@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const Color backgroundColor = Color(0xFF21254a);
 const Color secondaryColor = Color(0xFF0931d);
@@ -10,8 +10,6 @@ var isVerified = false;
 String isVerifiedString;
 String userEmail;
 String profileURL;
-bool profileURLExist = false;
-
 
 void getUserData() async {
   final FirebaseUser user = await FirebaseAuth.instance.currentUser();
@@ -19,12 +17,14 @@ void getUserData() async {
 }
 
 void getUserIcon() async {
+  final prefs = await SharedPreferences.getInstance();
+
   var profileRef = FirebaseStorage.instance.ref().child("images/$userEmail/profile.png");
   var iconRef = FirebaseStorage.instance.ref().child("images/userdefault.png");
 
-  if (profileURLExist == false) {
+  if (prefs.getBool("profileURLExist") == false) {
     profileURL = await iconRef.getDownloadURL();
-  } else if (profileURLExist == true) {
+  } else if (prefs.getBool("profileURLExist") == true) {
     profileURL = await profileRef.getDownloadURL();
   }
 }
@@ -35,6 +35,7 @@ void saveData() async {
 
 void checkVerify() async {
   FirebaseUser user = await FirebaseAuth.instance.currentUser();
+
   if (user.isEmailVerified) {
     isVerified = true;
     isVerifiedString = "Verified Account";

@@ -2,6 +2,7 @@ import 'package:eLesson/views/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:eLesson/variables.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 
 class Uploader extends StatefulWidget {
@@ -45,7 +46,7 @@ class _UploaderState extends State<Uploader> {
                       context,
                       MaterialPageRoute(builder: (context) => Homepage())
                     ),
-                    profileURLExist = true
+                    saveIconTrue()
                   },
                 ),
               if (_uploadTask.isPaused)
@@ -71,4 +72,10 @@ class _UploaderState extends State<Uploader> {
       );
     }
   }
+}
+
+void saveIconTrue() async {
+  final prefs = await SharedPreferences.getInstance();
+
+  prefs.setBool("profileURLExist", true);
 }

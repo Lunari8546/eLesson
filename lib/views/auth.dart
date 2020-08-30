@@ -1,3 +1,4 @@
+import 'package:eLesson/services/uploadimage.dart';
 import 'package:eLesson/splashscreen.dart';
 import 'package:eLesson/variables.dart';
 import 'package:eLesson/views/homepage.dart';
@@ -263,7 +264,7 @@ class _AuthState extends State<Auth> {
         FirebaseUser user = (await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email, password: _password)).user;
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => Homepage())
+          MaterialPageRoute(builder: (context) => UploadImage())
         );
         if (user != null) {
           user.sendEmailVerification();
