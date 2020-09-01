@@ -151,7 +151,7 @@ class _HomepageState extends State<Homepage> {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => Auth())
-        );
+      );
       loggedIn = false;
     } catch(e) {
       print(e.message);

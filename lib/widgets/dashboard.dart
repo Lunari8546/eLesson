@@ -5,13 +5,9 @@ class Dashboard extends StatelessWidget {
   Dashboard(this.item1, this.item2, this.item3, this.item4, this.item5);
 
   DashboardItem item1 = new DashboardItem();
-
   DashboardItem item2 = new DashboardItem();
-
   DashboardItem item3 = new DashboardItem();
-
   DashboardItem item4 = new DashboardItem();
-
   DashboardItem item5 = new DashboardItem();
 
   @override
