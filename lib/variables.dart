@@ -7,6 +7,8 @@ const Color backgroundColor = Color(0xFF21254a);
 const Color secondaryColor = Color(0xFF0931d);
 
 var isVerified = false;
+var noCourses = false;
+
 String isVerifiedString;
 String userEmail;
 String profileURL;
@@ -29,8 +31,12 @@ void getUserIcon() async {
   }
 }
 
-void saveData() async {
-  
+void getUserCourses() async {
+  final prefs = await SharedPreferences.getInstance();
+
+  if (prefs.getInt("userCourses") == 0) {
+    noCourses = true;
+  }
 }
 
 void checkVerify() async {

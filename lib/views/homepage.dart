@@ -27,8 +27,8 @@ class _HomepageState extends State<Homepage> {
       }
     } on SocketException catch (_) {
       Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Splashscreen())
+        context,
+        MaterialPageRoute(builder: (context) => Splashscreen())
       );
     }
   }
@@ -40,6 +40,7 @@ class _HomepageState extends State<Homepage> {
     checkVerify();
     getUserData();
     getUserIcon();
+    getUserCourses();
   }
 
   @override

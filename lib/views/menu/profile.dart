@@ -17,6 +17,7 @@ class _ProfileState extends State<Profile> {
   void initState() {
     super.initState();
     getUserIcon();
+    checkVerify();
   }
 
   @override

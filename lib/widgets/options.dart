@@ -19,33 +19,33 @@ class Options extends StatelessWidget {
               return SizedBox(height: 40);
             } else if (index == optionList.length + 1) {
               return SizedBox(height: 100);
-            }
-            return Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.all(15),
-              width: double.infinity,
-              height: 80,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.white)
-              ),
-              child: GestureDetector(
-                onTap: optionList[index - 1].function,
-                  child: ListTile(
-                    leading: optionList[index - 1].icon,
-                    title: Text(
-                      optionList[index - 1].title,
-                      style: GoogleFonts.montserrat(
-                        color: Colors.black
-                      ),
-                    ),
+          }
+          return Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.all(15),
+            width: double.infinity,
+            height: 80,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.white)
+            ),
+            child: GestureDetector(
+              onTap: optionList[index - 1].function,
+              child: ListTile(
+                leading: optionList[index - 1].icon,
+                title: Text(
+                  optionList[index - 1].title,
+                  style: GoogleFonts.montserrat(
+                    color: Colors.black
                   ),
                 ),
-              );
-            },
-          ),
-        );
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 }
 

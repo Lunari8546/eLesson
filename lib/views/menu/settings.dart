@@ -24,7 +24,7 @@ class _SettingsState extends State<Settings>{
           Option(
             title: "Show Legalese",
             icon: Icon(
-              Icons.perm_device_information,
+              Icons.info_outline,
               color: Colors.black,
               size: 45,
             ),

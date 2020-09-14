@@ -5,6 +5,7 @@ import 'package:eLesson/views/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 
 class Auth extends StatefulWidget {
@@ -258,6 +259,8 @@ class _AuthState extends State<Auth> {
   }
 
   void signUp() async {
+    final prefs = await SharedPreferences.getInstance();
+
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       try {
@@ -266,6 +269,7 @@ class _AuthState extends State<Auth> {
           context,
           MaterialPageRoute(builder: (context) => UploadImage())
         );
+        prefs.setInt("userCourses", 0);
         if (user != null) {
           user.sendEmailVerification();
         }
@@ -276,7 +280,6 @@ class _AuthState extends State<Auth> {
     }
   }
 
-  @override
   Future<void> forgotPassword(String email) async {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: _email);
   }
