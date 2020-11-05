@@ -1,12 +1,14 @@
-import 'package:eLesson/services/uploadimage.dart';
-import 'package:eLesson/splashscreen.dart';
-import 'package:eLesson/variables.dart';
-import 'package:eLesson/views/homepage.dart';
+// Flutter Setup
 import 'package:flutter/material.dart';
+
+// Packages Import
+import 'package:eLesson/variables.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:io';
+
+// Widgets Import
+import '../widgets/buttons/filledbutton.dart';
+import '../widgets/buttons/outlinebutton.dart';
+import 'package:eLesson/widgets/inputs/fieldwithicon.dart';
 
 class Auth extends StatefulWidget {
   @override
@@ -14,273 +16,291 @@ class Auth extends StatefulWidget {
 }
 
 class _AuthState extends State<Auth> {
-  void load() async {
-    try {
-      final result = await InternetAddress.lookup('google.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        
-      }
-    } on SocketException catch (_) {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Splashscreen())
-      );
-    }
-  }
+  // State Variables
+  int _pageState = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    load();
-  }
+  var _backgroundColor = Colors.white;
+  var _headingColor = mainTheme_purple;
 
-  String _email, _password;
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  double _headingTop = 100;
+
+  double _loginWidth = 0;
+  double _loginHeight = 0;
+  double _loginOpacity = 1;
+
+  double _loginYOffset = 0;
+  double _loginXOffset = 0;
+
+  double _registerYOffset = 0;
+
+  double _windowWidth = 0;
+  double _windowHeight = 0;
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: backgroundColor,
-        body: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                height: 200,
-                child: Stack(
-                  children: <Widget>[
-                    Positioned(
+    _windowWidth = MediaQuery.of(context).size.width;
+    _windowHeight = MediaQuery.of(context).size.height;
+
+    _loginHeight = _windowHeight - 260;
+
+    switch(_pageState) {
+      case 0:
+        _backgroundColor = Colors.white;
+
+        _headingTop = 100;
+        _headingColor = mainTheme_purple;
+
+        _loginWidth = _windowWidth;
+        _loginOpacity = 1;
+
+        _loginYOffset = _windowHeight;
+        _loginXOffset = 0;
+
+        _registerYOffset = _windowHeight;
+      break;
+
+      case 1:
+        _backgroundColor = mainTheme_red;
+
+        _headingTop = 90;
+        _headingColor = Colors.white;
+
+        _loginWidth = _windowWidth;
+        _loginOpacity = 1;
+
+        _loginYOffset = 260;
+        _loginXOffset = 0;
+
+        _registerYOffset = _windowHeight;
+      break;
+
+      case 2:
+        _backgroundColor = mainTheme_red;
+
+        _headingTop = 80;
+        _headingColor = Colors.white;
+
+        _loginWidth = _windowWidth - 40;
+        _loginOpacity = 0.7;
+
+        _loginYOffset = 240;
+        _loginXOffset = 20;
+
+        _registerYOffset = 270;
+      break;
+    }
+
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Stack(
+        children: <Widget>[
+          AnimatedContainer(
+            curve: Curves.fastLinearToSlowEaseIn,
+            duration: Duration(
+              milliseconds: 1000
+            ),
+            color: _backgroundColor,
+            child: GestureDetector(
+              onTap: () => {
+                setState(() {
+                  _pageState = 0;
+                })
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    child: Column(
+                      children: <Widget>[
+                        AnimatedContainer(
+                          curve: Curves.fastLinearToSlowEaseIn,
+                          duration: Duration(
+                            milliseconds: 1000
+                          ),
+                          margin: EdgeInsets.only(top: _headingTop),
+                          child: Text(
+                            "eLesson",
+                            style: GoogleFonts.lora(
+                              color: _headingColor,
+                              fontSize: 38,
+                              fontWeight: FontWeight.w400
+                            )
+                          )
+                        ),
+                        SizedBox(height: 24),
+                        Text(
+                          "Study efficiently with your friends.",
+                          style: GoogleFonts.titilliumWeb(
+                            color: _headingColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w300
+                          )
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 42),
+                    child: Center(
+                      child: Image.asset("assets/images/splash_bg.png")
+                    ),
+                  ),
+                  Container(
+                    child: GestureDetector(
+                      onTap: () => {
+                        setState(() {
+                          if (_pageState != 0) {
+                            _pageState = 0;
+                          } else {
+                            _pageState = 1;
+                          }
+                        })
+                      },
                       child: Container(
+                        margin: EdgeInsets.all(42),
+                        padding: EdgeInsets.all(20),
+                        width: double.infinity,
                         decoration: BoxDecoration(
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage("assets/images/curve.png")
-                          )
+                          color: mainTheme_purple,
+                          borderRadius: BorderRadius.circular(50)
                         ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 40
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 40),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      "Welcome to eLesson!",
-                      style: GoogleFonts.anticSlab(
-                        textStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: 34,
-                          fontWeight: FontWeight.bold
-                        )
-                      )
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 40
-              ),
-              Container(
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.transparent
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 30),
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: Colors.white
-                          )
-                        )
-                      ),
-                      child: TextFormField(
-                        validator: (input) {
-                          if (input.isEmpty) {
-                            return "Invalid email";
-                          }
-                        },
-                        style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(
+                        child: Center(
+                          child: Text(
+                            "Start Studying",
+                            style: GoogleFonts.titilliumWeb(
                               color: Colors.white,
-                              fontWeight: FontWeight.w300
-                          )
-                        ),
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Gmail",
-                          hintStyle: GoogleFonts.montserrat(
-                            textStyle: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w300
-                            )
-                          )
-                        ),
-                        onSaved: (input) => _email = input
-                      ),
-                    ),
-                    SizedBox(height: 30),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 30),
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: Colors.white
-                          )
-                        )
-                      ),
-                      child: TextFormField(
-                        validator: (input) {
-                          if(input.isEmpty){
-                            return "Invalid Password";
-                          }
-                        },
-                        obscureText: true,
-                        style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w300
-                          )
-                        ),
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Password",
-                          hintStyle: GoogleFonts.montserrat(
-                            textStyle: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w300
-                            )
-                          )
-                        ),
-                        onSaved: (input) => _password = input
-                      ),
-                    ),
-                    SizedBox(height: 40),
-                    GestureDetector(
-                      onTap: () => {
-                        forgotPassword(_email)
-                      },
-                      child: Center(
-                        child: Text(
-                          "Forgot Password?",
-                          style: GoogleFonts.montserrat(
-                            color: Colors.pink[200],
-                            fontWeight: FontWeight.w300,
-                            fontSize: 16
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 40),
-                    GestureDetector(
-                      onTap: () => {
-                        signIn()
-                      },
-                      child: Center(
-                        child: Container(
-                          height: 50,
-                          margin: EdgeInsets.symmetric(horizontal: 60),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: Colors.white
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Login",
-                              style: GoogleFonts.montserrat(
-                                fontSize: 20
-                              ),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600
                             ),
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 30),
-                    GestureDetector(
-                      onTap: () => {
-                        signUp()
-                      },
-                      child: Center(
-                        child: Container(
-                          height: 50,
-                          margin: EdgeInsets.symmetric(horizontal: 60),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: Colors.white
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Create Account",
-                              style: GoogleFonts.montserrat(
-                                fontSize: 20
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
+                  )
+                ],
+              ),
+            ),
           ),
-        ),
+          AnimatedContainer(
+            padding: EdgeInsets.all(32),
+            width: _loginWidth,
+            height: _loginHeight,
+            curve: Curves.fastLinearToSlowEaseIn,
+            duration: Duration(
+              milliseconds: 1000
+            ),
+            transform: Matrix4.translationValues(_loginXOffset, _loginYOffset, 1),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(_loginOpacity),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(25),
+                topRight: Radius.circular(25)
+              )
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.only(bottom: 30),
+                      child: Text(
+                        "Login to Continue",
+                        style: GoogleFonts.titilliumWeb(
+                          color: mainTheme_purple,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600
+                        )
+                      ),
+                    ),
+                    FieldWithIcon(
+                      buttonText: "Input your Email",
+                      buttonIcon: Icons.email,
+                    ),
+                    SizedBox(height: 20),
+                    FieldWithIcon(
+                      buttonText: "Input your Password",
+                      buttonIcon: Icons.vpn_key,
+                    )
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    FilledBtn(buttonText: "Login"),
+                    SizedBox(height: 20),
+                    OutlineBtn(
+                      buttonText: "Create new Account",
+                      buttonFunction: () => {
+                        setState(() {
+                          _pageState = 2;
+                        })
+                      },
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+          AnimatedContainer(
+            padding: EdgeInsets.all(32),
+            curve: Curves.fastLinearToSlowEaseIn,
+            duration: Duration(
+              milliseconds: 1000
+            ),
+            transform: Matrix4.translationValues(0, _registerYOffset, 1),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(25),
+                topRight: Radius.circular(25)
+              )
+            ),
+            child: Column(
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.only(bottom: 30),
+                      child: Text(
+                        "Create new Account",
+                        style: GoogleFonts.titilliumWeb(
+                          color: mainTheme_purple,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600
+                        )
+                      ),
+                    ),
+                    FieldWithIcon(
+                      buttonText: "Input your Email",
+                      buttonIcon: Icons.email,
+                    ),
+                    SizedBox(height: 20),
+                    FieldWithIcon(
+                      buttonText: "Input your Password",
+                      buttonIcon: Icons.vpn_key,
+                    )
+                  ],
+                ),
+                SizedBox(height: 100),
+                Column(
+                  children: <Widget>[
+                    FilledBtn(buttonText: "Register"),
+                    SizedBox(height: 20),
+                    OutlineBtn(
+                      buttonText: "Return to Login",
+                      buttonFunction: () => {
+                        setState(() {
+                          _pageState = 1;
+                        })
+                      },
+                    )
+                  ],
+                )
+              ],
+            ),
+          )
+        ],
       ),
     );
-  }
-
-  Future<void> signIn() async {
-    final formState = _formKey.currentState;
-    if (formState.validate()) {
-      formState.save();
-      try {
-        FirebaseUser user = (await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password)).user;
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Homepage())
-        );
-        loggedIn = true;
-      } catch(e) {
-        print(e.message);
-      }
-    }
-  }
-
-  void signUp() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
-      try {
-        FirebaseUser user = (await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email, password: _password)).user;
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => UploadImage())
-        );
-        prefs.setInt("userCourses", 0);
-        if (user != null) {
-          user.sendEmailVerification();
-        }
-        loggedIn = true;
-      } catch(e) {
-        print(e.message);
-      }
-    }
-  }
-
-  Future<void> forgotPassword(String email) async {
-    await FirebaseAuth.instance.sendPasswordResetEmail(email: _email);
   }
 }

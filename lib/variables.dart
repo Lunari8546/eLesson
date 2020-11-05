@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const Color backgroundColor = Color(0xFF21254a);
-const Color secondaryColor = Color(0xFF0931d);
+const Color mainTheme_red = Color(0xFFBD34C59);
+const Color mainTheme_purple = Color(0xFFB40284A);
 
 var isVerified = false;
 var noCourses = false;
