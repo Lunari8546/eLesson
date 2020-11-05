@@ -1,11 +1,7 @@
-import 'dart:io';
 import 'package:eLesson/services/uploadimage.dart';
 import 'package:eLesson/variables.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:image_cropper/image_cropper.dart';
 
 class Profile extends StatefulWidget {
   @override

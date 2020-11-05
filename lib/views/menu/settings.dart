@@ -1,7 +1,6 @@
 import 'package:eLesson/views/misc/legalese.dart';
 import 'package:flutter/material.dart';
 import 'package:eLesson/variables.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:eLesson/widgets/options.dart';
 
 class Settings extends StatefulWidget {
