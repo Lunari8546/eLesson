@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 
 // Packages Import
-import 'package:eLesson/variables.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FieldWithIcon extends StatefulWidget {
