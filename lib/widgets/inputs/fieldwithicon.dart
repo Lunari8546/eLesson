@@ -37,15 +37,14 @@ class _FieldWithIconState extends State<FieldWithIcon> {
           Expanded(
             child: TextField(
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(vertical: 20),
                 border: InputBorder.none,
                 hintText: widget.buttonText,
                 hintStyle: GoogleFonts.titilliumWeb()
-              ),
+              )
             ),
           )
         ],
-      ),
+      )
     );
   }
 }

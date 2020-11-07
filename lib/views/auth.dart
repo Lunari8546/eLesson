@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 // Packages Import
 import 'package:eLesson/misc/variables.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:awesome_page_transitions/awesome_page_transitions.dart';
 
 // Widgets Import
 import '../widgets/buttons/filledbutton.dart';
 import '../widgets/buttons/outlinebutton.dart';
-import 'package:eLesson/widgets/inputs/fieldwithicon.dart';
+import '../widgets/inputs/fieldwithicon.dart';
+
+// Views Import
+import './homepage.dart';
 
 class Auth extends StatefulWidget {
   @override
@@ -226,7 +230,20 @@ class _AuthState extends State<Auth> {
                 ),
                 Column(
                   children: <Widget>[
-                    FilledBtn(buttonText: "Login"),
+                    FilledBtn(
+                      buttonText: "Login", 
+                      buttonFunction: () => {
+                        Navigator.pushReplacement(
+                          context,
+                          AwesomePageRoute(
+                            transitionDuration: Duration(milliseconds: 1000),
+                            exitPage: widget,
+                            enterPage: Homepage(),
+                            transition: StackTransition(curve: Curves.easeInOutCubic)
+                          ),
+                        )
+                      }
+                    ),
                     SizedBox(height: 20),
                     OutlineBtn(
                       buttonText: "Create new Account",
