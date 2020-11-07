@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:eLesson/misc/variables.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:awesome_page_transitions/awesome_page_transitions.dart';
+import 'package:provider/provider.dart';
+
+// Services Import
+import 'package:eLesson/services/authservice.dart';
 
 // Widgets Import
 import '../widgets/buttons/filledbutton.dart';
@@ -21,6 +25,8 @@ class Auth extends StatefulWidget {
 
 class _AuthState extends State<Auth> {
   // State Variables
+  final formKey = GlobalKey<FormState>();
+
   int _pageState = 0;
 
   var _backgroundColor = Colors.white;
@@ -93,6 +99,9 @@ class _AuthState extends State<Auth> {
         _registerYOffset = 270;
       break;
     }
+
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -204,44 +213,55 @@ class _AuthState extends State<Auth> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(bottom: 30),
-                      child: Text(
-                        "Login to Continue",
-                        style: GoogleFonts.titilliumWeb(
-                          color: mainTheme_purple,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600
-                        )
+                Form(
+                  key: formKey,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(bottom: 30),
+                        child: Text(
+                          "Login to Continue",
+                          style: GoogleFonts.titilliumWeb(
+                            color: mainTheme_purple,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600
+                          )
+                        ),
                       ),
-                    ),
-                    FieldWithIcon(
-                      buttonText: "Input your Email",
-                      buttonIcon: Icons.email,
-                    ),
-                    SizedBox(height: 20),
-                    FieldWithIcon(
-                      buttonText: "Input your Password",
-                      buttonIcon: Icons.vpn_key,
-                    )
-                  ],
+                      FieldWithIcon(
+                        buttonText: "Input your Email",
+                        buttonIcon: Icons.email,
+                        controller: emailController,
+                        obscureText: false
+                      ),
+                      SizedBox(height: 20),
+                      FieldWithIcon(
+                        buttonText: "Input your Password",
+                        buttonIcon: Icons.vpn_key,
+                        controller: passwordController,
+                        obscureText: true
+                      )
+                    ],
+                  ),
                 ),
                 Column(
                   children: <Widget>[
                     FilledBtn(
                       buttonText: "Login", 
                       buttonFunction: () => {
-                        Navigator.pushReplacement(
-                          context,
-                          AwesomePageRoute(
-                            transitionDuration: Duration(milliseconds: 1000),
-                            exitPage: widget,
-                            enterPage: Homepage(),
-                            transition: StackTransition(curve: Curves.easeInOutCubic)
-                          ),
-                        )
+                        context.read<AuthService>().signIn(
+                          email: emailController.text.trim(),
+                          password: passwordController.text.trim()
+                        ),
+                        //Navigator.pushReplacement(
+                          //context,
+                          //AwesomePageRoute(
+                            //transitionDuration: Duration(milliseconds: 700),
+                            //exitPage: widget,
+                            //enterPage: Homepage(),
+                            //transition: StackTransition(curve: Curves.easeInOutCubic)
+                          //),
+                        //)
                       }
                     ),
                     SizedBox(height: 20),
@@ -290,15 +310,17 @@ class _AuthState extends State<Auth> {
                     FieldWithIcon(
                       buttonText: "Input your Email",
                       buttonIcon: Icons.email,
+                      obscureText: false
                     ),
                     SizedBox(height: 20),
                     FieldWithIcon(
                       buttonText: "Input your Password",
                       buttonIcon: Icons.vpn_key,
+                      obscureText: true
                     )
                   ],
                 ),
-                SizedBox(height: 100),
+                SizedBox(height: 130),
                 Column(
                   children: <Widget>[
                     FilledBtn(buttonText: "Register"),

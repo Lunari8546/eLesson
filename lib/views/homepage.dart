@@ -93,10 +93,10 @@ class _HomepageState extends State<Homepage> {
                 color: mainTheme_purple
               ),
               onTap: () => {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   AwesomePageRoute(
-                    transitionDuration: Duration(milliseconds: 1000),
+                    transitionDuration: Duration(milliseconds: 700),
                     exitPage: widget,
                     enterPage: Auth(),
                     transition: StackTransition(curve: Curves.easeInOutCubic)

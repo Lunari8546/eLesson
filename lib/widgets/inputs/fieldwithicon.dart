@@ -7,7 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 class FieldWithIcon extends StatefulWidget {
   final String buttonText;
   final IconData buttonIcon;
-  FieldWithIcon({this.buttonText, this.buttonIcon});
+  TextEditingController controller;
+  final bool obscureText;
+  FieldWithIcon({this.buttonText, this.buttonIcon, this.controller, this.obscureText});
 
   @override
   _FieldWithIconState createState() => _FieldWithIconState();
@@ -35,12 +37,22 @@ class _FieldWithIconState extends State<FieldWithIcon> {
             ),
           ),
           Expanded(
-            child: TextField(
+            child: TextFormField(
+              autocorrect: false,
+              controller: widget.controller,
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: widget.buttonText,
-                hintStyle: GoogleFonts.titilliumWeb()
-              )
+                hintStyle: GoogleFonts.titilliumWeb(),
+              ),
+              maxLines: 1,
+              obscureText: widget.obscureText,
+              validator: (input) {
+                if (input.isEmpty) {
+                  return "Invalid";
+                }
+              },
+              onSaved: (input) => widget.controller,
             ),
           )
         ],
