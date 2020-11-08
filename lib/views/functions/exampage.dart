@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // Packages Import
 import 'package:eLesson/misc/variables.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ExamPage extends StatefulWidget {
   @override

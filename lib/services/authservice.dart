@@ -13,8 +13,12 @@ class AuthService {
 
       return "Signed In.";
     } on FirebaseAuthException {
-      // Do nothing
+      return "Error";
     }
+  }
+
+  Future<void> signOut() async {
+    await _firebaseAuth.signOut();
   }
 
   Future<String> registerAccount({String email, String password}) async {
@@ -23,7 +27,7 @@ class AuthService {
 
       return "Account Registered.";
     } on FirebaseAuthException {
-      // Do nothing
+      return "Error";
     }
   }
 }

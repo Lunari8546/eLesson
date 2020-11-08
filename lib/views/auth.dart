@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 // Packages Import
 import 'package:eLesson/misc/variables.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:awesome_page_transitions/awesome_page_transitions.dart';
 import 'package:provider/provider.dart';
 
 // Services Import
@@ -15,9 +14,6 @@ import '../widgets/buttons/filledbutton.dart';
 import '../widgets/buttons/outlinebutton.dart';
 import '../widgets/inputs/fieldwithicon.dart';
 
-// Views Import
-import './homepage.dart';
-
 class Auth extends StatefulWidget {
   @override
   _AuthState createState() => _AuthState();
@@ -25,6 +21,18 @@ class Auth extends StatefulWidget {
 
 class _AuthState extends State<Auth> {
   // State Variables
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  final remailController = TextEditingController();
+  final rpasswordController = TextEditingController();
+
+  final emailNode = FocusNode();
+  final passNode = FocusNode();
+
+  final remailNode = FocusNode();
+  final rpassNode = FocusNode();
+
   final formKey = GlobalKey<FormState>();
 
   int _pageState = 0;
@@ -99,9 +107,6 @@ class _AuthState extends State<Auth> {
         _registerYOffset = 270;
       break;
     }
-
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -232,14 +237,18 @@ class _AuthState extends State<Auth> {
                         buttonText: "Input your Email",
                         buttonIcon: Icons.email,
                         controller: emailController,
-                        obscureText: false
+                        obscureText: false,
+                        node: emailNode,
+                        onEditingComplete: () => passNode.requestFocus(),
                       ),
                       SizedBox(height: 20),
                       FieldWithIcon(
                         buttonText: "Input your Password",
                         buttonIcon: Icons.vpn_key,
                         controller: passwordController,
-                        obscureText: true
+                        obscureText: true,
+                        node: passNode,
+                        onEditingComplete: () => passNode.unfocus(),
                       )
                     ],
                   ),
@@ -248,20 +257,11 @@ class _AuthState extends State<Auth> {
                   children: <Widget>[
                     FilledBtn(
                       buttonText: "Login", 
-                      buttonFunction: () => {
-                        context.read<AuthService>().signIn(
+                      buttonFunction: () async => {
+                        await context.read<AuthService>().signIn(
                           email: emailController.text.trim(),
                           password: passwordController.text.trim()
-                        ),
-                        //Navigator.pushReplacement(
-                          //context,
-                          //AwesomePageRoute(
-                            //transitionDuration: Duration(milliseconds: 700),
-                            //exitPage: widget,
-                            //enterPage: Homepage(),
-                            //transition: StackTransition(curve: Curves.easeInOutCubic)
-                          //),
-                        //)
+                        )
                       }
                     ),
                     SizedBox(height: 20),
@@ -310,20 +310,34 @@ class _AuthState extends State<Auth> {
                     FieldWithIcon(
                       buttonText: "Input your Email",
                       buttonIcon: Icons.email,
-                      obscureText: false
+                      obscureText: false,
+                      node: remailNode,
+                      controller: remailController,
+                      onEditingComplete: () => rpassNode.requestFocus(),
                     ),
                     SizedBox(height: 20),
                     FieldWithIcon(
                       buttonText: "Input your Password",
                       buttonIcon: Icons.vpn_key,
-                      obscureText: true
+                      obscureText: true,
+                      node: rpassNode,
+                      controller: rpasswordController,
+                      onEditingComplete: () => rpassNode.unfocus()
                     )
                   ],
                 ),
                 SizedBox(height: 130),
                 Column(
                   children: <Widget>[
-                    FilledBtn(buttonText: "Register"),
+                    FilledBtn(
+                      buttonText: "Register",
+                      buttonFunction: () async => {
+                        await context.read<AuthService>().registerAccount(
+                          email: remailController.text.trim(),
+                          password: rpasswordController.text.trim()
+                        )
+                      },
+                    ),
                     SizedBox(height: 20),
                     OutlineBtn(
                       buttonText: "Return to Login",

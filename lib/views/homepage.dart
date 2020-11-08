@@ -1,22 +1,26 @@
 // Flutter Setup
+import 'package:awesome_page_transitions/awesome_page_transitions.dart';
 import 'package:flutter/material.dart';
 
 // Packages Import
 import 'package:eLesson/misc/variables.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:awesome_page_transitions/awesome_page_transitions.dart';
+import 'package:provider/provider.dart';
 
 // Widgets Import
 import '../widgets/buttons/iconbutton.dart';
 import '../widgets/inputs/fieldwithicon.dart';
 
+// Services Import
+import 'package:eLesson/services/authservice.dart';
+
 // Models Import
 import '../models/functionlist.dart';
 
 // Views Import
-import './auth.dart';
 import './functions/exampage.dart';
+import 'menu/settings.dart';
 
 class Homepage extends StatefulWidget {
   @override
@@ -25,6 +29,9 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  final searchController = TextEditingController();
+  final searchNode = FocusNode();
 
   @override
   initState() {
@@ -40,12 +47,30 @@ class _HomepageState extends State<Homepage> {
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountEmail: Text("www.voltgaming@gmail.com"),
-              accountName: Text("Lunari8546"),
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage("assets/images/campfire.jpg")
-              )
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: mainTheme_red
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "eLesson",
+                    style: GoogleFonts.lora(
+                      color: Colors.white,
+                      fontSize: 40
+                    ),
+                  ),
+                  Text(
+                    "DEMO",
+                    style: GoogleFonts.titilliumWeb(
+                      color: Colors.white,
+                      fontSize: 15
+                    ),
+                  ),
+                ],
+              ),
             ),
             ListTile(
               title: Text(
@@ -60,7 +85,7 @@ class _HomepageState extends State<Homepage> {
                 color: mainTheme_purple,
               ),
               onTap: () => {
-                
+                Navigator.pop(context)
               },
             ),
             ListTile(
@@ -76,7 +101,15 @@ class _HomepageState extends State<Homepage> {
                 color: mainTheme_purple
               ),
               onTap: () => {
-
+                Navigator.push(
+                  context,
+                  AwesomePageRoute(
+                    transitionDuration: Duration(milliseconds: 700),
+                    exitPage: widget,
+                    enterPage: Settings(),
+                    transition: StackTransition(curve: Curves.easeInOutCubic)
+                  ),
+                )
               },
             ),
             Divider(color: mainTheme_purple),
@@ -93,15 +126,7 @@ class _HomepageState extends State<Homepage> {
                 color: mainTheme_purple
               ),
               onTap: () => {
-                Navigator.pushReplacement(
-                  context,
-                  AwesomePageRoute(
-                    transitionDuration: Duration(milliseconds: 700),
-                    exitPage: widget,
-                    enterPage: Auth(),
-                    transition: StackTransition(curve: Curves.easeInOutCubic)
-                  ),
-                )
+                context.read<AuthService>().signOut()
               },
             ),
             ListTile(
@@ -123,6 +148,7 @@ class _HomepageState extends State<Homepage> {
           ],
         ),
       ),
+      drawerEnableOpenDragGesture: false,
       resizeToAvoidBottomInset: false,
       body: Padding(
         padding: EdgeInsets.only(left: 20, top: 50, right: 20),
@@ -151,10 +177,10 @@ class _HomepageState extends State<Homepage> {
             ),
             SizedBox(height: 10),
             Text(
-              "How's your day been?",
+              quote,
               style: GoogleFonts.titilliumWeb(
                 color: mainTheme_purple,
-                fontSize: 20,
+                fontSize: 18,
                 fontWeight: FontWeight.w300
               ),
             ),
@@ -169,6 +195,10 @@ class _HomepageState extends State<Homepage> {
               child: FieldWithIcon(
                 buttonText: "Search Users or Articles",
                 buttonIcon: Icons.search,
+                obscureText: false,
+                controller: searchController,
+                node: searchNode,
+                onEditingComplete: () => searchNode.unfocus(),
               )
             ),
             Row(
@@ -195,7 +225,7 @@ class _HomepageState extends State<Homepage> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () => {
-                      if (functions[index].name == "Upcoming Exams") {
+                      if (functions[index].name == "Exam") {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => ExamPage())
