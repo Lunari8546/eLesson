@@ -11,7 +11,7 @@ List<FunctionList> functions = functionsData
     .toList();
 
 var functionsData = [
-  {"name": "Upcoming Exams", 'image': "assets/images/exam.jpeg", 'pageName': "ExamPage"},
+  {"name": "Schedule", 'image': "assets/images/exam.jpeg", 'pageName': "SchedulePage"},
   {"name": "Articles", 'image': "assets/images/articles.jpeg", 'pageName': "ArticlesPage"},
   {"name": "Revision", 'image': "assets/images/revision.jpeg", 'pageName': "RevisionPage"},
   {"name": "Camps", 'image': "assets/images/campfire.jpg", 'pageName': "CampsPage"},

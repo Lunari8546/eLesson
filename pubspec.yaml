@@ -29,6 +29,9 @@ dependencies:
   google_fonts: ^1.1.1
   flutter_staggered_grid_view: ^0.3.2
   awesome_page_transitions: ^1.0.0
+  double_back_to_close_app: ^1.2.0
+  table_calendar: ^2.3.0
+  flutter_slidable: ^0.5.7
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

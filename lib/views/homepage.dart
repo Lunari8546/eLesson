@@ -1,5 +1,4 @@
 // Flutter Setup
-import 'package:awesome_page_transitions/awesome_page_transitions.dart';
 import 'package:flutter/material.dart';
 
 // Packages Import
@@ -7,6 +6,8 @@ import 'package:eLesson/misc/variables.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
+import 'package:awesome_page_transitions/awesome_page_transitions.dart';
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 
 // Widgets Import
 import '../widgets/buttons/iconbutton.dart';
@@ -19,7 +20,7 @@ import 'package:eLesson/services/authservice.dart';
 import '../models/functionlist.dart';
 
 // Views Import
-import './functions/exampage.dart';
+import 'functions/schedulepage.dart';
 import 'menu/settings.dart';
 
 class Homepage extends StatefulWidget {
@@ -150,117 +151,127 @@ class _HomepageState extends State<Homepage> {
       ),
       drawerEnableOpenDragGesture: false,
       resizeToAvoidBottomInset: false,
-      body: Padding(
-        padding: EdgeInsets.only(left: 20, top: 50, right: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                IconBtn(
-                  buttonIcon: Icons.menu,
-                  buttonFunction: () => {
-                    _scaffoldKey.currentState.openDrawer()
-                  },
-                )
-              ],
-            ),
-            SizedBox(height: 30),
-            Text(
-              welcomeText,
-              style: GoogleFonts.lora(
-                color: mainTheme_purple,
-                fontSize: 30,
-                fontWeight: FontWeight.bold
-              ),
-            ),
-            SizedBox(height: 10),
-            Text(
-              quote,
-              style: GoogleFonts.titilliumWeb(
-                color: mainTheme_purple,
-                fontSize: 18,
-                fontWeight: FontWeight.w300
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 40),
-              height: 60,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Color(0xFFF5F5F7),
-                borderRadius: BorderRadius.circular(50)
-              ),
-              child: FieldWithIcon(
-                buttonText: "Search Users or Articles",
-                buttonIcon: Icons.search,
-                obscureText: false,
-                controller: searchController,
-                node: searchNode,
-                onEditingComplete: () => searchNode.unfocus(),
-              )
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  "Study & Learn",
-                  style: GoogleFonts.titilliumWeb(
-                    color: mainTheme_purple,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600
-                  ),
-                )
-              ],
-            ),
-            SizedBox(height: 10),
-            Expanded(
-              child: StaggeredGridView.countBuilder(
-                physics: BouncingScrollPhysics(),
-                crossAxisCount: 2,
-                itemCount: functions.length,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () => {
-                      if (functions[index].name == "Exam") {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ExamPage())
-                        )
-                      }
+      body: DoubleBackToCloseApp(
+        snackBar: SnackBar(
+          content: Text("Tap again to exit eLesson."),
+        ),
+        child: Padding(
+          padding: EdgeInsets.only(left: 20, top: 50, right: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  IconBtn(
+                    buttonIcon: Icons.menu,
+                    buttonFunction: () => {
+                      _scaffoldKey.currentState.openDrawer()
                     },
-                    child: Container(
-                      padding: EdgeInsets.all(20),
-                      height: index.isEven ? 200 : 240,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        image: DecorationImage(
-                          image: AssetImage(functions[index].image),
-                          fit: BoxFit.fill,
-                          colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.darken)
-                        )
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            functions[index].name,
-                            style: GoogleFonts.lora(
-                              color: Colors.white
-                            )
-                          )
-                        ],
-                      ),
+                  )
+                ],
+              ),
+              SizedBox(height: 30),
+              Text(
+                welcomeText,
+                style: GoogleFonts.lora(
+                  color: mainTheme_purple,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold
+                ),
+              ),
+              SizedBox(height: 10),
+              Text(
+                quote,
+                style: GoogleFonts.titilliumWeb(
+                  color: mainTheme_purple,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w300
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 40),
+                height: 60,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Color(0xFFF5F5F7),
+                  borderRadius: BorderRadius.circular(50)
+                ),
+                child: FieldWithIcon(
+                  buttonText: "Search Users or Articles",
+                  buttonIcon: Icons.search,
+                  obscureText: false,
+                  controller: searchController,
+                  node: searchNode,
+                  onEditingComplete: () => searchNode.unfocus(),
+                )
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    "Study & Learn",
+                    style: GoogleFonts.titilliumWeb(
+                      color: mainTheme_purple,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600
                     ),
-                  );
-                },
-                staggeredTileBuilder: (index) => StaggeredTile.fit(1)
+                  )
+                ],
+              ),
+              SizedBox(height: 10),
+              Expanded(
+                child: StaggeredGridView.countBuilder(
+                  physics: BouncingScrollPhysics(),
+                  crossAxisCount: 2,
+                  itemCount: functions.length,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 20,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () => {
+                        if (functions[index].pageName == "SchedulePage") {
+                          Navigator.push(
+                            context,
+                            AwesomePageRoute(
+                              transitionDuration: Duration(milliseconds: 700),
+                              exitPage: widget,
+                              enterPage: SchedulePage(),
+                              transition: StackTransition(curve: Curves.easeInOutCubic)
+                            ),
+                          )
+                        }
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(20),
+                        height: index.isEven ? 200 : 240,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          image: DecorationImage(
+                            image: AssetImage(functions[index].image),
+                            fit: BoxFit.fill,
+                            colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.darken)
+                          )
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              functions[index].name,
+                              style: GoogleFonts.lora(
+                                color: Colors.white
+                              )
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                  staggeredTileBuilder: (index) => StaggeredTile.fit(1)
+                )
               )
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );
