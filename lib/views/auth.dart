@@ -147,7 +147,7 @@ class _AuthState extends State<Auth> {
                         ),
                         SizedBox(height: 24),
                         Text(
-                          "Study from anywhere with your friends.",
+                          "Study anywhere with your friends.",
                           style: GoogleFonts.titilliumWeb(
                             color: _headingColor,
                             fontSize: 20,
